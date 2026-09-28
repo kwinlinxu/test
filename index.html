@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>上課加點系統｜入口</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #6366f1;
+      --accent-2: #8b5cf6;
+      --text: #111827;
+      --muted: #475569;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Huninn,'Microsoft JhengHei','PingFang TC',sans-serif;
+      color:var(--text);
+      background:linear-gradient(135deg,#eef2ff 0%,#f8fafc 45%,#fce7f3 100%);
+      overflow-x:hidden;
+    }
+    .bg{
+      position:fixed;inset:0;pointer-events:none;z-index:0;
+    }
+    .orb{
+      position:absolute;border-radius:50%;filter:blur(40px);opacity:.55;
+      animation:float 12s ease-in-out infinite;
+    }
+    .orb.a{width:280px;height:280px;background:#c7d2fe;top:-60px;left:-40px;animation-delay:0s}
+    .orb.b{width:220px;height:220px;background:#fbcfe8;bottom:8%;right:-50px;animation-delay:-4s}
+    .orb.c{width:160px;height:160px;background:#a5f3fc;bottom:18%;left:18%;animation-delay:-7s}
+    @keyframes float{
+      0%,100%{transform:translate(0,0) scale(1)}
+      50%{transform:translate(18px,-22px) scale(1.06)}
+    }
+
+    .wrap{
+      position:relative;z-index:1;
+      max-width:880px;margin:0 auto;padding:72px 24px 48px;
+      min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    }
+    .hero{text-align:center;margin-bottom:40px;animation:rise .7s ease both}
+    .badge{
+      display:inline-block;padding:6px 14px;border-radius:999px;
+      background:#fff;color:var(--accent);font-weight:800;font-size:13px;
+      box-shadow:0 8px 20px rgba(99,102,241,.12);
+      margin-bottom:14px;
+    }
+    h1{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 10px;letter-spacing:.02em}
+    .lead{margin:0 auto;max-width:34em;color:var(--muted);font-size:1.05rem;line-height:1.7}
+
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding-top:40px}}
+
+    .card{
+      position:relative;overflow:hidden;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:24px;padding:28px 26px 24px;
+      box-shadow:0 18px 40px rgba(99,102,241,.12);
+      backdrop-filter:blur(10px);
+      text-decoration:none;color:inherit;
+      display:flex;flex-direction:column;gap:10px;
+      animation:rise .75s ease both;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .card:nth-child(1){animation-delay:.12s}
+    .card:nth-child(2){animation-delay:.22s}
+    .card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(99,102,241,.2)}
+    .card::after{
+      content:'';position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);
+      transform:translateX(-120%);
+    }
+    .card:hover::after{animation:shine .8s ease}
+    @keyframes shine{
+      to{transform:translateX(120%)}
+    }
+    .icon{
+      width:56px;height:56px;border-radius:16px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.7rem;margin-bottom:4px;
+    }
+    .card.points .icon{background:linear-gradient(135deg,#6366f1,#8b5cf6);box-shadow:0 10px 20px rgba(99,102,241,.28)}
+    .card.admin .icon{background:linear-gradient(135deg,#0d9488,#14b8a6);box-shadow:0 10px 20px rgba(13,148,136,.28)}
+    .card h2{margin:0;font-size:1.45rem}
+    .card p{margin:0;color:var(--muted);line-height:1.65;flex:1}
+    .go{
+      margin-top:12px;align-self:flex-start;
+      display:inline-flex;align-items:center;gap:8px;
+      padding:11px 16px;border-radius:12px;font-weight:800;color:#fff;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      transition:transform .15s ease;
+    }
+    .card.admin .go{background:linear-gradient(135deg,#0d9488,#14b8a6)}
+    .card:hover .go{transform:translateX(4px)}
+
+    footer{
+      text-align:center;margin-top:36px;color:var(--muted);font-size:.92rem;
+      animation:rise .8s ease both;animation-delay:.35s;
+    }
+    @keyframes rise{
+      from{opacity:0;transform:translateY(16px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="orb c"></div>
+  </div>
+  <div class="wrap">
+    <header class="hero">
+      <div class="badge">Classroom Points</div>
+      <h1>⭐ 上課加點系統</h1>
+      <p class="lead">抽獎、兌換、小組都已整合在上課加點裡。請選擇要進入的頁面。</p>
+    </header>
+    <div class="grid">
+      <a class="card points" href="points.html">
+        <div class="icon">⭐</div>
+        <h2>上課加點</h2>
+        <p>加扣點、小組、座位、任務、作業、兌換與翻牌抽獎，一頁完成。</p>
+        <span class="go">進入課堂 →</span>
+      </a>
+      <a class="card admin" href="admin.html">
+        <div class="icon">🔐</div>
+        <h2>學生資料管理</h2>
+        <p>新增、編班、封存與批次修改。管理員登入後使用。</p>
+        <span class="go">管理名單 →</span>
+      </a>
+    </div>
+    <footer>首次使用可在上課加點頁匯入班級名單，或到學生資料管理新增。</footer>
+  </div>
+</body>
+</html>
